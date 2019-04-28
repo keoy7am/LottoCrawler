@@ -22,6 +22,14 @@ namespace lottoForm.CrawlerDrivers
         {
             using (var file = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory+ "lotto.csv"))
             {
+                var header = new LottoModel()
+                {
+                    Date = "日期",
+                    Content = "中獎號碼",
+                    Special = "特別號"
+                };
+
+                file.WriteLine(header.ToString());
                 foreach (var item in _lottos)
                 {
                     file.WriteLine(item.ToString());

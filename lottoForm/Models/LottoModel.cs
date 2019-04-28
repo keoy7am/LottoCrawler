@@ -22,7 +22,7 @@ namespace lottoForm.Models
         public string Special { get; set; }
         public override string ToString()
         {
-            return $"{Date}{Content}{Special}";
+            return $"{Date},\"{Content}\",{Special}";
         }
     }
 }
