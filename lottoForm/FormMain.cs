@@ -29,6 +29,7 @@ namespace lottoForm
             {
                 Console.WriteLine($"日期 {r.Date} 開獎號：{r.Content} 特別號：{r.Special}");
             }
+            lottoCralwer.ExportCSV();
         }
     }
 }

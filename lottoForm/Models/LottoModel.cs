@@ -20,5 +20,9 @@ namespace lottoForm.Models
         /// 特別號
         /// </summary>
         public string Special { get; set; }
+        public override string ToString()
+        {
+            return $"{Date}{Content}{Special}";
+        }
     }
 }

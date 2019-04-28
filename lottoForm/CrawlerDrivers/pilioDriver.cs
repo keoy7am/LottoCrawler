@@ -3,6 +3,7 @@ using lottoForm.Interfaces;
 using lottoForm.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,8 +20,13 @@ namespace lottoForm.CrawlerDrivers
         private List<LottoModel> _lottos = new List<LottoModel>();
         public void ExportCSV()
         {
-            // _lottos
-            throw new NotImplementedException();
+            using (var file = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory+ "lotto.csv"))
+            {
+                foreach (var item in _lottos)
+                {
+                    file.WriteLine(item.ToString());
+                }
+            }
         }
 
         public List<LottoModel> GetAllData()
