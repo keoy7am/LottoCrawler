@@ -10,7 +10,7 @@ import platform
 import requests
 import csv
 import time
-from subprocess import call
+import codecs
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -55,15 +55,16 @@ def getData(index):
 			dataQuery = re.select('td')
 			rawDate = dataQuery[0].text
 			date = rawDate[:4] + '/' + rawDate[4:].split('(')[0]
-			nums  = dataQuery[1].text.strip()
-			special = dataQuery[2].text.strip()
+			nums  = dataQuery[1].text.strip().replace('&nbsp;','')
+			special = dataQuery[2].text.strip().replace('&nbsp;','')
 			data.append([date,nums,special])
 			# print '--------------------'
 			# print ' 日期： ' + date + ' 開獎號： ' + nums + ' 特別號： ' + special
 def exportCSV():
-	with open("lotto.csv", "wb") as f:
-		w = csv.writer(f)
-		w.writerows(data)
+	file = open('lotto.csv', 'wb')
+	file.write(codecs.BOM_UTF8) # 防止亂碼
+	w = csv.writer(file)
+	w.writerows(data)
 
 if __name__ == "__main__":
 	if(platform.system()=='Windows'):
