@@ -28,13 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btn_pilio = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btn_pilio
+            // 
+            this.btn_pilio.Location = new System.Drawing.Point(12, 12);
+            this.btn_pilio.Name = "btn_pilio";
+            this.btn_pilio.Size = new System.Drawing.Size(268, 160);
+            this.btn_pilio.TabIndex = 0;
+            this.btn_pilio.Text = "透過 pilio 網站取得資料";
+            this.btn_pilio.UseVisualStyleBackColor = true;
+            this.btn_pilio.Click += new System.EventHandler(this.btn_pilio_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_pilio);
             this.Name = "FormMain";
             this.Text = "FormLottoCrawler";
             this.ResumeLayout(false);
@@ -42,6 +54,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btn_pilio;
     }
 }
 
