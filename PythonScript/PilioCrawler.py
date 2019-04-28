@@ -6,6 +6,7 @@
 # Github: https://github.com/keoy7am/LottoCrawler
 import os
 from bs4 import BeautifulSoup
+import platform
 import requests
 import csv
 import time
@@ -19,14 +20,16 @@ domain = "https://www.pilio.idv.tw/ltobig/list.asp"
 data = []
 data.append(["日期","中獎號碼","特別號"])
 
+lineBreak = '\r'
+
 def progress(num, total):
     rate = float(num) / float(total)
     rate_num = int(rate * 100)
-    r = '\r[%s%s] 完成度 %d%%, 更新至第 %d 頁' % ("="*rate_num, " "*(100-rate_num), rate_num, num )
+    r = lineBreak + '[%s%s] 完成度 %d%%, 更新至第 %d 頁' % ("="*rate_num, " "*(100-rate_num), rate_num, num )
     sys.stdout.write(r)
     sys.stdout.flush()
     if(rate_num==100):
-		print "\r"
+		print lineBreak
 
 def main():
 	count = getPageCount()
@@ -63,4 +66,6 @@ def exportCSV():
 		w.writerows(data)
 
 if __name__ == "__main__":
+	if(platform.system()=='Windows'):
+		lineBreak = '\r\n'
 	main()
