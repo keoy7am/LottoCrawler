@@ -4,11 +4,12 @@
 # Time: 02:30
 # TargetSite: https://www.pilio.idv.tw/ltobig/list.asp
 # Github: https://github.com/keoy7am/LottoCrawler
+import os
 from bs4 import BeautifulSoup
 import requests
 import csv
 import time
-
+from subprocess import call
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -16,7 +17,16 @@ sys.setdefaultencoding('utf-8')
 domain = "https://www.pilio.idv.tw/ltobig/list.asp"
 
 data = []
-data.append(["Date","Content","Special"])
+data.append(["日期","中獎號碼","特別號"])
+
+def progress(num, total):
+    rate = float(num) / float(total)
+    rate_num = int(rate * 100)
+    r = '\r[%s%s] 完成度 %d%%, 更新至第 %d 頁' % ("="*rate_num, " "*(100-rate_num), rate_num, num )
+    sys.stdout.write(r)
+    sys.stdout.flush()
+    if(rate_num==100):
+		print "\r"
 
 def main():
 	count = getPageCount()
@@ -26,13 +36,13 @@ def getPageCount():
 	res = requests.get(domain, timeout = 30)
 	soup = BeautifulSoup(res.text, "lxml")
 	count = soup.select("a")[31].get('href').replace('list.asp?indexpage=','').replace('&orderby=new','')
-	print 'count:' + count
+	print '總頁數:' + count
 	return count
 def getAllData(count):
 	for i in range(1 , int(count) +1):
-		print 'Page: ' + str(i)
 		getData(i)
-		time.sleep(0.05)
+		progress(i,int(count))
+		time.sleep(0.01)
 def getData(index):
 	res = requests.get(domain + '?indexpage=' + str(index) +'&orderby=new', timeout = 30)
 	soup = BeautifulSoup(res.text, "lxml")
